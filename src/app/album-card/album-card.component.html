@@ -1,0 +1,45 @@
+<div class="card" style="width: 18rem;">
+    <div [ngSwitch]="album.genre">
+        <!--  Esto va en el ts del componente ====> public styleCard: boolean = true;-->
+        <div [ngClass]="(styleCard) ? 'card-border-rock-background': 'card-border-rock'" [ngStyle]="{'color': ( album.genre==0) ? 'white': 'red' }" *ngSwitchCase="0"> Rock</div>
+        <div [ngClass]="(styleCard) ? 'card-border-opera-background': 'card-border-opera'" [ngStyle]="{'color': ( album.genre==1) ? colorOne: colorTwo }" *ngSwitchCase="1"> Opera</div>
+        <div [ngClass]="(styleCard==true) ? 'card-border-metal-background': 'card-border-metal'" *ngSwitchCase="2"> Metal</div>
+        <div [ngClass]="(styleCard===true) ? 'card-border-salsa-background': 'card-border-salsa'" *ngSwitchCase="3"> Salsa</div>
+        <div [ngClass]="(styleCard===true) ? 'card-border-jazz-background': 'card-border-jazz'" *ngSwitchCase="4"> Jazz</div>
+        <div [ngClass]="(styleCard===true) ? 'card-border-any-background': 'card-border-any'" *ngSwitchDefault>
+            Sin genero
+        </div>
+    </div>
+    <img src="{{album.img}}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">
+            {{ album.name | uppercase }} <br>
+        </h5>
+        <p class="card-text">{{ album.description | slice:0:80 | uppercase }}...</p>
+        <h4>{{ album.release | date : 'yyyy-MM-dd'}}</h4>
+
+        <!-- <h6>{{ album.price | currency:'EUR' }} </h6> -->
+        <h6 *ngIf="showDetails">{{ album.price | currency}} </h6>
+
+        <!-- <a *ngIf="showDetails" (click)="showList()" class="btn btn-primary">Mostrar pistas</a> -->
+
+        <a *ngIf="!showDetails" routerLink="../detalle/{{album.id}}" class="btn btn-primary">Mostrar detalles </a>
+        <!-- <a *ngIf="!showDetails" routerLink="/detalle/{{album.id}}" class="btn btn-primary">Mostrar detalles </a> -->
+        <a *ngIf="showDetails" routerLink="">Regresar al inicio</a>
+    </div>
+</div>
+<div *ngIf="showSong" class="card" style="width: 18rem;">
+    <div class="card-header">
+        Lista de canciones
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="
+                let song of album.songs; 
+                let indice = index;
+                ">
+            <h1>{{ indice + 1 }}</h1> {{ song.name}} {{song.lenght}}
+        </li>
+    </ul>
+</div>
+<!-- Hijo -->
+<!-- @Output-->

@@ -1,0 +1,17 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cancion</th>
+            <th scope="col">Duración</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let song of list; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{song.name}}</td>
+            <td>{{song.lenght}}</td>
+
+        </tr>
+    </tbody>
+</table>

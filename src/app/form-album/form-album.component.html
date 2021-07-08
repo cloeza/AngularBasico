@@ -1,0 +1,119 @@
+<div class="modal-backdrop fade show"></div>
+<div class="modal fade show" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    {{ (edit===true) ? 'Agregar': 'Editar' }} álbumn
+                </h5>
+                <button (click)="this.showForm.emit(false);" type="button" class="btn-close" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="albumForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input formControlName="name" type="text" class="form-control is-invalid" [ngClass]="{'is-invalid': albumForm.controls['name'].invalid && (albumForm.controls['name'].dirty || albumForm.controls['name'].touched),
+                        'is-valid': !(albumForm.controls['name'].invalid )}" id="name">
+                        <div *ngIf="albumForm.controls['name'].invalid && (albumForm.controls['name'].dirty || albumForm.controls['name'].touched)" class="alert alert-danger">
+                            <div *ngIf="albumForm.controls['name'].errors?.required">
+                                Campo requerido
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripcion</label>
+                        <textarea formControlName="description" class="form-control" id="description" rows="3" [ngClass]="{'is-invalid': albumForm.controls['description'].invalid && (albumForm.controls['description'].dirty || albumForm.controls['description'].touched),
+                        'is-valid': !(albumForm.controls['description'].invalid)}"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="genre">Genero</label>
+                        <select formControlName="genre" class="form-select" placeholder="Seleccione un genero" id="genre" [ngClass]="{'is-invalid': albumForm.controls['genre'].invalid && (albumForm.controls['genre'].dirty || albumForm.controls['genre'].touched),
+                        'is-valid': !(albumForm.controls['genre'].invalid )}">
+                            <option value="" selected>Selecciona un genero</option>
+                            <option value="0">Rock</option>
+                            <option value="1">Opera</option>
+                            <option value="2">Metal</option>
+                            <option value="3">Salsa</option>
+                            <option value="4">Jazz</option>
+                          </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input (change)="onProfileChange($event)" formControlName="img" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                    </div>
+                    <div class="input-group mb-3 justify-content-center">
+                        <img [src]="base64textString" width="200" height="200" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="release" class="form-label">Lanzamiento</label>
+                                <input type="date" class="form-control" formControlName="release" id="release">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Precio</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text" id="inputGroupPrepend">$</span>
+                                    <input type="number" formControlName="price" class="form-control" id="price" aria-describedby="inputGroupPrepend" [ngClass]="{'is-invalid': isInvalidForm('price'), 'is-valid':  isValidForm('price')}">
+                                    <div *ngIf="isInvalidForm('price')" class="alert alert-danger">
+                                        <div *ngIf="albumForm.controls['price'].errors?.required">
+                                            Campo requerido
+                                        </div>
+                                        <div *ngIf="albumForm.controls['price'].errors?.min">
+                                            Minimo el precio debe ser 0
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button (click)="AddSong()" type="button " class="btn btn-primary mt-3 mb-5 btn-block ">+ Agregar</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Pista</th>
+                                        <th>Duracción</th>
+                                        <th>Borrar</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="songs">
+                                    <tr [formGroupName]="i" *ngFor="let control of getSongs.controls; let i = index">
+
+                                        <td>{{ i + 1 }}
+                                            <input class="form-control" type="hidden" value="id" formControlName="id" />
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" formControlName="name" />
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="text" formControlName="lenght" />
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" (click)="deleteSong(i)">
+                                                    Borrar
+                                                </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn-secondary " (click)="this.showForm.emit(false);">Cerrar</button>
+                <button type="button " class="btn btn-primary " [disabled]="!albumForm.valid " (click)="saveAlbum() ">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

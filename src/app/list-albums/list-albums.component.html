@@ -1,0 +1,16 @@
+<div class="container-fluid">
+    <div class="row" *ngIf="!loading">
+        <div class="col" *ngFor="let itemAlbum of listAlbums">
+            <app-album-card [album]="itemAlbum" [showDetails]="false"></app-album-card>
+        </div>
+    </div>
+    <div class="bodySpinner" *ngIf="loading">
+        <div class="contentSpinner">
+            <div class="spinner-border m-5" role="status">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Padre -->
+<!-- @input -->

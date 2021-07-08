@@ -1,0 +1,16 @@
+<div class="container" *ngIf="albumFilter!==undefined">
+    <div class="row">
+        <div class="col justify-content-end">
+            <app-album-card [album]="albumFilter" [showDetails]="true"></app-album-card>
+        </div>
+        <div class="col col-md-9">
+            <app-list-song [list]="albumFilter.songs"></app-list-song>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col justify-content-center">
+            <button type="button" class="btn btn-primary" (click)="showFormAlbum=true">Editar</button>
+            <button type="button" class="btn btn-danger" (click)="deleteAlbum()">Eliminar</button>
+        </div>
+    </div>
+    <app-form-album *ngIf="showFormAlbum" [album]="albumFilter" [edit]="true" (showForm)="onShowForm($event)"></app-form-album>

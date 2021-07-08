@@ -1,0 +1,61 @@
+@import './../../assets/scss/variables.scss';
+.card-border-rock-background {
+    background: $rock;
+}
+
+.card-border-opera-background {
+    background: $opera;
+}
+
+.card-border-metal-background {
+    background: $metal;
+}
+
+.card-border-salsa-background {
+    background: $salsa;
+}
+
+.card-border-jazz-background {
+    background: $jazz;
+}
+
+.card-border-any-background {
+    background: $any;
+}
+
+//////////////////////
+.card-border-rock {
+    border-width: 5px;
+    border-style: solid;
+    border-color: $rock;
+}
+
+.card-border-opera {
+    border-width: 5px;
+    border-style: solid;
+    border-color: $opera;
+}
+
+.card-border-metal {
+    border-width: 5px;
+    border-style: solid;
+    border-color: $metal;
+}
+
+.card-border-salsa {
+    border-width: 5px;
+    border-style: solid;
+    border-color: $salsa;
+}
+
+.card-border-jazz {
+    border-width: 5px;
+    border-style: solid;
+    border-color: $jazz;
+}
+
+.card-border-any {
+    border-width: 5px;
+    border-style: solid;
+    border-color: $any;
+}
